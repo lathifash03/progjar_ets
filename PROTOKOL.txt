@@ -15,27 +15,35 @@ REQUEST YANG DILAYANI:
   * Semua result akan diberikan dalam bentuk JSON dan diakhiri
     dengan character ascii code #13#10#13#10 atau "\r\n\r\n"
 
-LIST
-* TUJUAN: untuk mendapatkan daftar seluruh file yang dilayani oleh file server
-* PARAMETER: tidak ada
-* RESULT:
-- BERHASIL:
-  - status: OK
-  - data: list file
-- GAGAL:
-  - status: ERROR
-  - data: pesan kesalahan
 
-GET
-* TUJUAN: untuk mendapatkan isi file dengan menyebutkan nama file dalam parameter
-* PARAMETER:
-  - PARAMETER1 : nama file
-* RESULT:
-- BERHASIL:
-  - status: OK
-  - data_namafile : nama file yang diminta
-  - data_file : isi file yang diminta (dalam bentuk base64)
-- GAGAL:
-  - status: ERROR
-  - data: pesan kesalahan
+1. LIST
+   * TUJUAN: Mendapatkan daftar file.
+   * PARAMETER: Tidak ada.
+   * RESPONS:
+     - OK: {"status":"OK", "data": [list_file]}
+     - ERROR: {"status":"ERROR", "data": "pesan_kesalahan"}
 
+2. GET <filename>
+   * TUJUAN: Mendownload atau mendapatkan file.
+   * PARAMETER:
+     - PARAMETER1: nama file.
+   * RESPONS:
+     - OK: {"status":"OK", "data_namafile": "nama_file", "data_file": "base64_data"}
+     - ERROR: {"status":"ERROR", "data": "pesan_kesalahan"}
+
+3. UPLOAD <filename> <base64_data>
+   * TUJUAN: Mengupload file.
+   * PARAMETER:
+     - PARAMETER1: nama file.
+     - PARAMETER2: isi file (dalam format base64).
+   * RESPONS:
+     - OK: {"status":"OK", "data_namafile": "nama_file", "data": "File berhasil diupload"}
+     - ERROR: {"status":"ERROR", "data": "pesan_kesalahan"}
+
+4. DELETE <filename>
+   * TUJUAN: Menghapus file.
+   * PARAMETER:
+     - PARAMETER1: nama file.
+   * RESPONS:
+     - OK: {"status":"OK", "data_namafile": "nama_file", "data": "File berhasil dihapus"}
+     - ERROR: {"status":"ERROR", "data": "File tidak ditemukan"}
